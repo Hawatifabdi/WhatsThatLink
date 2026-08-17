@@ -226,76 +226,13 @@ The prototype consists of:
 - A Flask backend
 - A trained Random Forest model
 - VirusTotal integration
+- A demo video contained in the repo
 
 Because the backend is currently running in a development environment rather than a public cloud deployment, the APK is intended primarily for prototype evaluation and demonstration.
 
 A full public deployment is planned as a future improvement.
 
 ---
-
-## How Judges Can Evaluate the Project
-
-### Option 1 — Watch the Demo Video
-
-A complete demonstration video is provided with the submission.
-
-The video demonstrates:
-
-1. A WhatsApp message containing a URL
-2. WhatsThatLink? detecting the URL
-3. The URL being analyzed
-4. Machine-learning phishing detection
-5. VirusTotal threat intelligence
-6. Risk classification
-7. The resulting warning shown to the user
-
-### Demo Video
-
-**[Watch the WhatsThatLink? Demo](INSERT_VIDEO_LINK_HERE)**
-
----
-
-### Option 2 — Install the Android Prototype
-
-The Android prototype APK can be provided as part of the submission.
-
-#### Requirements
-
-- Android device
-- WhatsApp
-- Notification Access enabled for WhatsThatLink?
-- Access to the prototype backend during testing
-
-#### Installation
-
-1. Download the `WhatsThatLink.apk` file from the project submission.
-2. Install the APK on an Android device.
-3. Open WhatsThatLink?.
-4. Grant **Notification Access** when prompted.
-5. Ensure the Android device can communicate with the prototype backend.
-6. Open WhatsApp.
-7. Receive a message containing a URL.
-8. WhatsThatLink? detects the URL and performs the analysis.
-9. View the resulting risk assessment.
-
-> **Note:** Because this is a prototype and the backend is not publicly deployed, the APK does not currently function as a completely standalone internet service. The demo video therefore provides the most straightforward way for judges to evaluate the complete system.
-
----
-
-## Suggested Test
-
-For demonstration purposes, a URL can be sent through a WhatsApp message and allowed to trigger the detection process.
-
-Example:
-
-```text
-https://example.com/login?id=12345
-```
-
-**Do not open suspicious URLs simply for testing.**
-
-The purpose of the test is to demonstrate URL detection and analysis, not to visit the website.
-
 ---
 
 ## Architecture
@@ -434,6 +371,3 @@ University of Nairobi
 
 ---
 
-## License
-
-MIT License
