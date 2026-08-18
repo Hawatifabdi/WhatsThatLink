@@ -21,7 +21,6 @@ Existing security tools may require users to manually copy and scan a URL, which
 **WhatsThatLink? addresses this problem by detecting URLs directly from WhatsApp notifications and analyzing them automatically before the user opens the link.**
 
 ---
----
 
 ## Existing Systems and the Gap
 
@@ -57,11 +56,11 @@ WhatsThatLink? uses VirusTotal as one of its intelligence sources rather than re
 
 WhatsThatLink? focuses on **proactive, WhatsApp-specific URL detection**.
 
-Instead of requiring the user to manually submit a link:
+Instead of requiring the user to manually submit a link, the system detects and analyzes URLs automatically when they appear in WhatsApp notifications.
+
+### Existing approach
 
 ```text
-Existing approach:
-
 Receive link
      |
      v
@@ -78,6 +77,51 @@ Paste URL
      |
      v
 Request analysis
+```
+
+### WhatsThatLink?
+
+```text
+WhatsApp notification
+        |
+        v
+URL automatically detected
+        |
+        v
+URL automatically analyzed
+        |
+        +----------------------+
+        |                      |
+        v                      v
+Random Forest            VirusTotal
+        |                      |
+        +----------+-----------+
+                   |
+                   v
+             Risk Assessment
+                   |
+                   v
+          Warning notification
+```
+
+The key difference is **where the security check happens in the user's workflow**.
+
+WhatsThatLink? is designed to intervene **between receiving a WhatsApp notification and clicking the link**, rather than requiring the user to manually submit the URL after receiving it.
+
+WhatsThatLink? specifically:
+
+- Monitors **WhatsApp notifications only**
+- Extracts URLs automatically from those notifications
+- Ignores notifications from other applications
+- Combines machine-learning classification with VirusTotal threat intelligence
+- Provides a risk assessment before the user opens the link
+- Does not automatically open detected URLs
+- Keeps the final decision with the user
+
+The goal is not to replace existing security services, but to provide an **additional proactive layer of protection at the point where a potentially malicious link is first received**.
+
+---
+
 ## Our Solution
 
 WhatsThatLink? acts as an additional layer of protection between receiving a WhatsApp message and clicking its URL.
@@ -126,35 +170,37 @@ The application only acts when a URL is detected in a WhatsApp notification.
 
 ## How It Works
 
+WhatsThatLink? receives a WhatsApp notification containing a URL. The notification listener detects the WhatsApp notification and extracts the URL. The URL is then sent to the Flask backend, where it is analyzed by the Random Forest model and checked against VirusTotal. The results are used to generate a risk assessment, which is returned to the Android application and shown to the user as a warning.
+
 ```text
-WhatsApp Message
-       |
-       v
+WhatsApp
+    |
+    v
 WhatsApp Notification
-       |
-       v
+    |
+    v
 WhatsThatLink?
 Notification Listener
-       |
-       v
+    |
+    v
 URL Extraction
-       |
-       v
+    |
+    v
 Flask REST API
-       |
-       +------------------+
-       |                  |
-       v                  v
-Random Forest         VirusTotal
-Classifier            Threat Intelligence
-       |                  |
-       +--------+---------+
-                |
-                v
-          Risk Assessment
-                |
-                v
-      WhatsThatLink? Warning
+    |
+    +------------------+
+    |                  |
+    v                  v
+Random Forest       VirusTotal
+Classifier          API
+    |                  |
+    +--------+---------+
+             |
+             v
+      Risk Assessment
+             |
+             v
+      User Warning
 ```
 
 ---
@@ -201,7 +247,7 @@ The model uses URL characteristics including:
 ### Test Results
 
 | Metric | Score |
-|---|---:|
+| ------ | ----- |
 | Accuracy | 98.84% |
 | Precision | 99.33% |
 | Recall | 97.94% |
@@ -289,6 +335,68 @@ Because the backend is currently running in a development environment rather tha
 A full public deployment is planned as a future improvement.
 
 ---
+
+## How Judges Can Evaluate the Project
+
+### Option 1 — Watch the Demo Video
+
+A complete demonstration video is provided with the submission.
+
+The video demonstrates:
+
+1. A WhatsApp message containing a URL
+2. WhatsThatLink? detecting the URL
+3. The URL being analyzed
+4. Machine-learning phishing detection
+5. VirusTotal threat intelligence
+6. Risk classification
+7. The resulting warning shown to the user
+
+### Demo Video
+
+**[Watch the WhatsThatLink? Demo](INSERT_VIDEO_LINK_HERE)**
+
+### Option 2 — Install the Android Prototype
+
+The Android prototype APK can be provided as part of the submission.
+
+#### Requirements
+
+- Android device
+- WhatsApp
+- Notification Access enabled for WhatsThatLink?
+- Access to the prototype backend during testing
+
+#### Installation
+
+1. Download the `WhatsThatLink.apk` file from the project submission.
+2. Install the APK on an Android device.
+3. Open WhatsThatLink?.
+4. Grant **Notification Access** when prompted.
+5. Ensure the Android device can communicate with the prototype backend.
+6. Open WhatsApp.
+7. Receive a message containing a URL.
+8. WhatsThatLink? detects the URL and performs the analysis.
+9. View the resulting risk assessment.
+
+> **Note:** Because this is a prototype and the backend is not publicly deployed, the APK does not currently function as a completely standalone internet service. The demo video therefore provides the most straightforward way for judges to evaluate the complete system.
+
+---
+
+## Suggested Test
+
+For demonstration purposes, a URL can be sent through a WhatsApp message and allowed to trigger the detection process.
+
+Example:
+
+```text
+https://example.com/login?id=12345
+```
+
+**Do not open suspicious URLs simply for testing.**
+
+The purpose of the test is to demonstrate URL detection and analysis, not to visit the website.
+
 ---
 
 ## Architecture
@@ -427,3 +535,6 @@ University of Nairobi
 
 ---
 
+## License
+
+MIT License
