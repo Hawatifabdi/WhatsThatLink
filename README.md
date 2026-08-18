@@ -21,7 +21,63 @@ Existing security tools may require users to manually copy and scan a URL, which
 **WhatsThatLink? addresses this problem by detecting URLs directly from WhatsApp notifications and analyzing them automatically before the user opens the link.**
 
 ---
+---
 
+## Existing Systems and the Gap
+
+Several existing approaches can help users identify suspicious or malicious links, but they generally require the user to take an action after receiving the link.
+
+### Manual URL Scanners
+
+Tools such as VirusTotal allow users to submit a URL and receive information about whether security engines have flagged it.
+
+However, the user must first **copy the URL, open the scanner, paste the URL, and initiate the scan**. This creates friction and relies on the user recognizing that a link may be dangerous.
+
+### Browser and Search-Engine Security Warnings
+
+Modern browsers and search engines can warn users about known malicious or deceptive websites.
+
+However, these protections generally become relevant when the user is **opening or navigating to the URL**, rather than proactively analyzing the link when it first arrives in a WhatsApp notification.
+
+### Security Chatbots and AI Assistants
+
+Security-focused chatbots and AI assistants can help users analyze suspicious links when a user manually provides the URL or asks whether a link is safe.
+
+While useful, this still requires the user to **copy, paste, or submit the link themselves**. It does not automatically monitor incoming WhatsApp notifications for URLs.
+
+### Threat-Intelligence Services
+
+Services such as VirusTotal provide valuable threat intelligence by checking URLs against multiple security engines and databases.
+
+WhatsThatLink? uses VirusTotal as one of its intelligence sources rather than replacing it. The difference is that WhatsThatLink? initiates the analysis automatically when a URL is detected in a WhatsApp notification.
+
+---
+
+## What Makes WhatsThatLink? Different?
+
+WhatsThatLink? focuses on **proactive, WhatsApp-specific URL detection**.
+
+Instead of requiring the user to manually submit a link:
+
+```text
+Existing approach:
+
+Receive link
+     |
+     v
+Recognize it may be suspicious
+     |
+     v
+Copy URL
+     |
+     v
+Open scanner / chatbot
+     |
+     v
+Paste URL
+     |
+     v
+Request analysis
 ## Our Solution
 
 WhatsThatLink? acts as an additional layer of protection between receiving a WhatsApp message and clicking its URL.
